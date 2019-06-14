@@ -1,38 +1,36 @@
+const fs = require('fs');
+const path = require('path');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const fs = require('fs');
 const sharp = require('sharp');
 const figlet = require('figlet');
+const loadIniFile = require('read-ini-file');
+const package = require('./package.json');
 
-function generate() {
-  const input = './input/large.jpg';
-  const outputDir = './output';
-  const outputName = 'resize';
-  const outputFormat = 'jpg';
-  const outputSizeSet = [
-    {
-      width: 300,
-      height: 500,
-      quality: 80,
-    },
-    {
-      width: 300,
-      height: 100,
-      quality: 100,
-    },
-    {
-      width: 200,
-      height: 200,
-      quality: 100,
-    },
-    {
-      width: 100,
-      height: 100,
-      quality: 100,
-    }
-  ];
+const configFileName = 'thumbnail-generate-config.ini';
 
+function generate(directory) {
+  let config = {};
+
+  try {
+    const configPath = path.join(directory ? directory : __dirname, configFileName);
+    config = loadIniFile.sync(configPath);
+  } catch (e) {
+    console.clear();
+    console.log(path.join(directory ? directory : __dirname, configFileName));
+    console.log(chalk.rgb(255, 0, 0)(`=== ERROR : 설정파일을 불러오는데 실패했습니다.`));
+    start();
+    return;
+  }
+
+  const { outputName, outputFormat } = config;
+  const outputSizeSet = [...config.thumnail.map(set => JSON.parse(set))];
   const works = [];
+
+  const input = path.join(directory ? directory : __dirname, config.input);
+  const outputDir = path.join(directory ? directory : __dirname, config.outputDir);
+  // console.log(input);
+  // console.log(outputDir);
   
   if(fs.existsSync(outputDir) === false) {
     fs.mkdirSync(outputDir);
@@ -51,7 +49,7 @@ function generate() {
     work.resize(width, height, {
       fit: fit ? fit : 'contain',
       background: background ? background : outputFormat === 'png' ? { r: 255, g: 255, b: 255, alpha: 0 } : '#ffffff'
-    }).toFile(`./output/${outputName}-${width}x${height}.${outputFormat}`);
+    }).toFile(path.join(outputDir, `${outputName}-${width}x${height}.${outputFormat}`));
       
     works.push(work);
   });
@@ -59,7 +57,7 @@ function generate() {
   Promise.all(works).finally(() => {
     console.log(chalk.rgb(0, 255, 255)(`=== 썸네일 생성 결과 ===
 ${outputSizeSet.map(({ width, height }) => {
-  return `./output/${outputName}-${width}x${height}.${outputFormat}`;
+  return path.join(outputDir, `${outputName}-${width}x${height}.${outputFormat}`);
 }).join('\n')}
 `));
 
@@ -78,12 +76,12 @@ function start() {
       }
 
       console.log(data);
+      console.log(`   author: ${package.author.name}(${package.author.email}), version: v${package.version}\n`);
 
       inquirer.prompt([{
         type: 'input',
         name: 'directory',
-        message: '원본 이미지 파일이 위치한 폴더의 경로를 입력하세요.',
-        default: '.',
+        message: '이미지 설정 파일이 위치한 폴더의 경로를 입력하세요.',
       }, {
         type: 'list',
         name: 'confirm',
@@ -92,8 +90,8 @@ function start() {
       }])
         .then((answers) => {
           if(answers.confirm === '예') {
-            console.log(chalk.rgb(255, 255, 0)(`=== 대상경로 : ${answers.directory}`));
-            generate();
+            console.log(chalk.rgb(255, 255, 0)(`=== 대상경로 : ${answers.directory ? answers.directory : '.'}/${configFileName}`));
+            generate(answers.directory);
           } else {
             exit();
           }

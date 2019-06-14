@@ -21,7 +21,10 @@
     "url": "git+https://github.com/dohoons/thumbnail-generator.git"
   },
   "keywords": [],
-  "author": "",
+	"author": {
+		"name": "dohoons",
+		"email": "dohoons@gmail.com"
+	},
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dohoons/thumbnail-generator/issues"
@@ -31,6 +34,7 @@
     "chalk": "^2.4.2",
     "figlet": "^1.2.3",
     "inquirer": "^6.3.1",
+    "read-ini-file": "^2.0.0",
     "sharp": "^0.22.1"
   },
   "devDependencies": {
