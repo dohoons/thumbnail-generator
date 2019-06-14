@@ -1,16 +1,14 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const fs = require('fs');
-const sharp = require("sharp");
+const sharp = require('sharp');
 const figlet = require('figlet');
 
-function generate({
-  
-}) {
-  const input = "./input/large.jpg";
+function generate() {
+  const input = './input/large.jpg';
   const outputDir = './output';
-  const outputName = "resize";
-  const outputFormat = "jpg";
+  const outputName = 'resize';
+  const outputFormat = 'jpg';
   const outputSizeSet = [
     {
       width: 300,
@@ -40,10 +38,10 @@ function generate({
     fs.mkdirSync(outputDir);
   }
 
-  outputSizeSet.forEach(({ width, height, background, quality, progressive }) => {
+  outputSizeSet.forEach(({ width, height, background, fit, quality, progressive }) => {
     let work = sharp(input);
 
-    if(outputFormat === "jpg") {
+    if(outputFormat === 'jpg') {
       work = work.jpeg({
         quality: quality ? quality : 80,
         progressive: Boolean(progressive)
@@ -51,8 +49,8 @@ function generate({
     }
 
     work.resize(width, height, {
-      fit: "contain",
-      background: background ? background : outputFormat === "png" ? { r: 255, g: 255, b: 255, alpha: 0 } : "#ffffff"
+      fit: fit ? fit : 'contain',
+      background: background ? background : outputFormat === 'png' ? { r: 255, g: 255, b: 255, alpha: 0 } : '#ffffff'
     }).toFile(`./output/${outputName}-${width}x${height}.${outputFormat}`);
       
     works.push(work);
@@ -75,7 +73,7 @@ function start() {
         console.log('Something went wrong...');
         console.dir(err);
 
-        setTimeout(() => {}, 500000)
+        setTimeout(() => {}, 50000)
         return;
       }
 
@@ -114,6 +112,9 @@ function exit() {
       if(answers.exit === '처음부터') {
         console.clear();
         start();
+      } else {
+        console.log('EXIT');
+        setTimeout(() => {}, 500);
       }
     });
 }
