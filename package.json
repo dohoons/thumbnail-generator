@@ -1,0 +1,39 @@
+{
+  "name": "thumbnail-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "app": "./index.js"
+  },
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "assets": [
+      "node_modules/figlet/fonts/Standard.flf"
+    ]
+  },
+  "scripts": {
+    "start": "node index",
+    "build": "pkg . --out-path=build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dohoons/thumbnail-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dohoons/thumbnail-generator/issues"
+  },
+  "homepage": "https://github.com/dohoons/thumbnail-generator#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "figlet": "^1.2.3",
+    "inquirer": "^6.3.1",
+    "sharp": "^0.22.1"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.0"
+  }
+}
