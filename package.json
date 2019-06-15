@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "node index",
-    "build": "pkg . --out-path=build"
+    "build": "pkg . --out-path=build --targets=win"
   },
   "repository": {
     "type": "git",
