@@ -18,7 +18,7 @@ function loadConfig(directory) {
     const { outputName, outputFormat } = config;
     const input = path.join(dirname, config.input);
     const outputDir = path.join(dirname, config.outputDir);
-    const outputSizeSet = [...config.thumnail.map(set => JSON.parse(set))];
+    const outputSizeSet = config.thumnail.map(set => JSON.parse(set));
 
     return {
       input,
