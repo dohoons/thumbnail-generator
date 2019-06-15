@@ -21,10 +21,10 @@
     "url": "git+https://github.com/dohoons/thumbnail-generator.git"
   },
   "keywords": [],
-	"author": {
-		"name": "dohoons",
-		"email": "dohoons@gmail.com"
-	},
+  "author": {
+    "name": "dohoons",
+    "email": "dohoons@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dohoons/thumbnail-generator/issues"
