@@ -6,6 +6,8 @@
 https://github.com/dohoons/thumbnail-generator/releases/download/1.0.0/thumbnail-generator-v1.0.zip
 
 ## 설정파일 구성
+설정파일을 이미지세트 폴더 별로 복사해서 사용하세요.
+
 thumbnail-config.ini
 ```ini
 ; 입력파일 경로
