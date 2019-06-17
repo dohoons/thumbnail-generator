@@ -10,10 +10,11 @@ https://github.com/dohoons/thumbnail-generator/releases/download/1.0.0/thumbnail
 
 thumbnail-config.ini
 ```ini
-; 입력파일 경로 (여러개의 파일 가능)
+; 입력파일 경로 (여러개의 파일 가능, *: png,jpg,gif 일괄 지정)
 input[]=input/large.jpg
 input[]=input/large2.jpg
 input[]=input/large3.jpg
+input[]=input/multi/*
 
 ; 출력파일 이름 (생략시 input 파일이름)
 outputName[]=

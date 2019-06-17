@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob-all');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const sharp = require('sharp');
@@ -16,9 +17,17 @@ function loadConfig(directory) {
   try {
     const config = loadIniFile.sync(configPath);
     const { outputName, outputFormat } = config;
-    const input = config.input.map(filepath => path.join(dirname, filepath));
     const outputDir = path.join(dirname, config.outputDir);
     const outputSizeSet = config.thumnail.map(set => JSON.parse(set));
+    const input = config.input.map(filepath => path.join(dirname, filepath)).reduce((p,c) => {
+      return p.concat(
+        c.split(path.sep).pop() === "*" ? glob.sync([
+          'input/**/*.png',
+          'input/**/*.jpg',
+          'input/**/*.gif'
+        ]).map(file => path.resolve(file)) : c
+      );
+    }, []);
 
     return {
       input,
