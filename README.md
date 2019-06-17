@@ -15,11 +15,11 @@ input[]=input/large.jpg
 input[]=input/large2.jpg
 input[]=input/large3.jpg
 
-; 출력파일 폴더경로 (현재폴더=빈값)
-outputDir=output
-
 ; 출력파일 이름 (생략시 input 파일이름)
 outputName[]=
+
+; 출력파일 폴더경로 (현재폴더=빈값)
+outputDir=output
 
 ; 출력파일 포맷
 outputFormat=jpg
