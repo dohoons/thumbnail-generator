@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "node index",
-    "build": "pkg . --out-path=build --targets=win"
+    "dest:sharp": "shx mkdir -p ./build/sharp/build && shx mkdir -p ./build/sharp/vendor && shx cp -r ./node_modules/sharp/build/Release ./build/sharp/build && shx cp -r ./node_modules/sharp/vendor/lib ./build/sharp/vendor",
+    "build": "npm run dest:sharp && pkg . --out-path=build --targets=win"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "sharp": "^0.22.1"
   },
   "devDependencies": {
-    "pkg": "^4.4.0"
+    "pkg": "^4.4.0",
+    "shx": "^0.3.2"
   }
 }
