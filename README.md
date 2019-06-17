@@ -41,7 +41,7 @@ thumnail[]={ "width": 100, "height": 100, "quality": 80 }
 | 구분 | 이미지 |
 | --- | --- |
 | 원본 | <img src="input/large.jpg" alt="원본"> |
-| 100x100 | <img src="demo/resize-100x100.jpg" alt=""> |
-| 200x200 | <img src="demo/resize-200x200.jpg" alt=""> |
-| 300x100 | <img src="demo/resize-300x100.jpg" alt=""> |
-| 300x500 | <img src="demo/resize-300x500.jpg" alt=""> |
+| 100x100 | <img src="demo/large-100x100.jpg" alt=""> |
+| 200x200 | <img src="demo/large-200x200.jpg" alt=""> |
+| 300x100 | <img src="demo/large-300x100.jpg" alt=""> |
+| 300x500 | <img src="demo/large-300x500.jpg" alt=""> |
