@@ -10,7 +10,7 @@ const package = require('./package.json');
 const configFileName = 'thumbnail-config.ini';
 
 function loadConfig(directory) {
-  const dirname = directory ? directory : __dirname;
+  const dirname = directory ? directory : process.cwd();
   const configPath = path.join(dirname, configFileName);
 
   try {
@@ -100,7 +100,7 @@ function start() {
     ])
       .then((answers) => {
         if(answers.confirm === '예') {
-          console.log(chalk.rgb(255, 255, 0)(`=== 대상경로===\n  ${path.join(answers.directory ? answers.directory : __dirname, configFileName)}`));
+          console.log(chalk.rgb(255, 255, 0)(`=== 대상경로===\n  ${path.join(answers.directory ? answers.directory : process.cwd(), configFileName)}`));
           generate(answers.directory);
         } else if(answers.confirm === '다시시작') {
           console.clear();

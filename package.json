@@ -7,7 +7,6 @@
     "app": "./index.js"
   },
   "pkg": {
-    "scripts": "build/**/*.js",
     "assets": [
       "node_modules/figlet/fonts/Standard.flf"
     ]
