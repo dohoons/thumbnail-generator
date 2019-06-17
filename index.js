@@ -16,7 +16,7 @@ function loadConfig(directory) {
   try {
     const config = loadIniFile.sync(configPath);
     const { outputName, outputFormat } = config;
-    const input = path.join(dirname, config.input);
+    const input = config.input.map(filepath => path.join(dirname, filepath));
     const outputDir = path.join(dirname, config.outputDir);
     const outputSizeSet = config.thumnail.map(set => JSON.parse(set));
 
@@ -47,24 +47,27 @@ function generate(directory) {
     fs.mkdirSync(outputDir);
   }
 
-  const works = outputSizeSet.map(({ width, height, background, fit, quality, progressive }) => {
-    const outputPath = path.join(outputDir, `${outputName}-${width ? width : 'auto'}x${height ? height : 'auto'}.${outputFormat}`);
-    let work = sharp(input);
+  const works = input.map((filepath, index) => {
+    return outputSizeSet.map(({ width, height, background, fit, quality, progressive }) => {
+      const filename = filepath.split(path.sep).pop().split(".")[0]
+      const outputPath = path.join(outputDir, `${outputName[index] ? outputName[index] : filename}-${width ? width : 'auto'}x${height ? height : 'auto'}.${outputFormat}`);
+      let work = sharp(filepath);
 
-    if(outputFormat === 'jpg') {
-      work = work.jpeg({
-        quality: quality ? quality : 80,
-        progressive: Boolean(progressive)
-      });
-    }
+      if(outputFormat === 'jpg') {
+        work = work.jpeg({
+          quality: quality ? quality : 80,
+          progressive: Boolean(progressive)
+        });
+      }
 
-    work.resize(width, height, {
-      fit: fit || 'contain',
-      background: background ? `#${background}` : outputFormat === 'png' ? { r: 255, g: 255, b: 255, alpha: 0 } : '#ffffff'
-    }).toFile(outputPath);
-      
-    return work;
-  });
+      work.resize(width, height, {
+        fit: fit || 'contain',
+        background: background ? `#${background}` : outputFormat === 'png' ? { r: 255, g: 255, b: 255, alpha: 0 } : '#ffffff'
+      }).toFile(outputPath);
+
+      return work;
+    });
+  }).reduce((p,c) => p.concat(c), []);
 
   Promise.all(works).then(res => {
     console.log(chalk.rgb(0, 255, 255)(`=== 썸네일 생성 결과 ===\n  ${res.map(r => r.options.fileOut).join('\n  ')}\n`));
