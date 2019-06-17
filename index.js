@@ -22,9 +22,9 @@ function loadConfig(directory) {
     const input = config.input.map(filepath => path.join(dirname, filepath)).reduce((p,c) => {
       return p.concat(
         c.split(path.sep).pop() === "*" ? glob.sync([
-          'input/**/*.png',
-          'input/**/*.jpg',
-          'input/**/*.gif'
+          `${c.split('*')[0]}/**/*.png`,
+          `${c.split('*')[0]}/**/*.jpg`,
+          `${c.split('*')[0]}/**/*.gif`
         ]).map(file => path.resolve(file)) : c
       );
     }, []);
