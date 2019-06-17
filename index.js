@@ -76,7 +76,7 @@ function generate(directory) {
 }
 
 function start() {
-  figlet('Thumbnail Generator', function(err, data) {
+  figlet('Thumbnail\n   Generator', function(err, data) {
     if(err) {
       console.log('Something went wrong...');
       console.dir(err);
