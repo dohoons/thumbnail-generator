@@ -85,7 +85,7 @@ function generate(directory) {
 }
 
 function start() {
-  figlet('Thumbnail\n   Generator', function(err, data) {
+  figlet(`Thumbnail${process.stdout.columns < 100 ? '\n  ' : ''} Generator`, function(err, data) {
     if(err) {
       console.log('Something went wrong...');
       console.dir(err);
