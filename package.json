@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node index",
-    "dest:sharp": "shx mkdir -p ./build/sharp/build && shx mkdir -p ./build/sharp/vendor && shx cp -r ./node_modules/sharp/build/Release ./build/sharp/build && shx cp -r ./node_modules/sharp/vendor/lib ./build/sharp/vendor",
+    "dest:sharp": "shx mkdir -p ./build/sharp/build && shx mkdir -p ./build/sharp/vendor && shx cp -r ./node_modules/sharp/build/Release ./build/sharp/build && shx cp -r ./node_modules/sharp/vendor/lib ./build/sharp/vendor && shx cp ./thumbnail-config.ini ./build && shx cp -r ./input ./build",
     "build": "npm run dest:sharp && pkg . --out-path=build --targets=win"
   },
   "repository": {
