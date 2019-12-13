@@ -69,10 +69,29 @@ function generate(directory) {
         });
       }
 
-      work.resize(width, height, {
-        fit: fit || 'contain',
-        background: background ? `#${background}` : outputFormat === 'png' ? { r: 255, g: 255, b: 255, alpha: 0 } : '#ffffff'
-      }).toFile(outputPath);
+      if(outputFormat === 'jpg') {
+        work
+          .flatten({
+            background: background ? `#${background}` : '#ffffff'
+          })
+          .resize(width, height, {
+            fit: fit || 'contain',
+            background: background ? `#${background}` : '#ffffff'
+          })
+          .toFile(outputPath);
+      } else {
+        if(background) {
+          work.flatten({
+            background: `#${background}`
+          });
+        }
+        work
+          .resize(width, height, {
+            fit: fit || 'contain',
+            background: background ? `#${background}` : { r: 0, g: 0, b: 0, alpha: 0 }
+          })
+          .toFile(outputPath);
+      }
 
       return work;
     });
