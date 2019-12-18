@@ -57,9 +57,10 @@ function generate(directory) {
   }
 
   const works = input.map((filepath, index) => {
-    return outputSizeSet.map(({ width, height, background, fit, quality, progressive }) => {
+    return outputSizeSet.map(({ suffix, width, height, background, fit, quality, progressive }) => {
       const filename = filepath.split(path.sep).pop().split(".")[0]
-      const outputPath = path.join(outputDir, `${outputName[index] ? outputName[index] : filename}-${width ? width : 'auto'}x${height ? height : 'auto'}.${outputFormat}`);
+      const suffixStr = suffix ? suffix : `-${width ? width : 'auto'}x${height ? height : 'auto'}`
+      const outputPath = path.join(outputDir, `${outputName[index] ? outputName[index] : filename}${suffixStr}.${outputFormat}`);
       let work = sharp(filepath);
 
       if(outputFormat === 'jpg') {
