@@ -79,7 +79,10 @@ function generate(directory) {
             fit: fit || 'contain',
             background: background ? `#${background}` : '#ffffff'
           })
-          .toFile(outputPath);
+          .toFile(outputPath)
+          .catch(err => {
+            console.log(chalk.rgb(255, 0, 0)(`\n${err.message}: ${filepath}`))
+          });
       } else {
         if(background) {
           work.flatten({
@@ -91,7 +94,10 @@ function generate(directory) {
             fit: fit || 'contain',
             background: background ? `#${background}` : { r: 0, g: 0, b: 0, alpha: 0 }
           })
-          .toFile(outputPath);
+          .toFile(outputPath)
+          .catch(err => {
+            console.log(chalk.rgb(255, 0, 0)(`\n${err.message}: ${filepath}`))
+          });
       }
 
       return work;
