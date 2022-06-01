@@ -36,7 +36,7 @@
     "glob-all": "^3.1.0",
     "inquirer": "^6.3.1",
     "read-ini-file": "^2.0.0",
-    "sharp": "^0.22.1"
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "pkg": "^4.4.0",
